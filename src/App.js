@@ -13,7 +13,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 import BarCharts from './barChart.js';
 import PieChart from './pieChart.js';
-import SimpleBarChart from './simpleBarChart.js';
+import SimpleBarCharts from './simpleBarChart.js';
 import Home from './home.js';
 import Examples from './examples.js';
 import Create from './components/Create';
@@ -27,7 +27,7 @@ const App = () => (
                 <Route path='/' element={<Home/>} />
                 <Route path='/create' element={<Create/>} />
                 <Route path='/view' element={<Examples/>} />
-                <Route path='/simple' element={<SimpleBarChart/>} />
+                <Route path='/simple' element={<SimpleBarCharts/>} />
                 <Route path='/bar' element={<BarCharts/>} />
                 <Route path='/pie' element={<PieChart/>} />
             </Switch>

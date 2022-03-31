@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { DropdownButton } from 'react-bootstrap';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
@@ -37,7 +37,7 @@ const Dropdown = (props) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
                                     console.log(`Choosen value for X-axes: ${title}`);
-                                    props.setSelectedAxes({x: title});
+                                    props.setSelectedXAxes(title);
                                 }} >{title}
                                 </DropdownItem>
                             );
@@ -48,7 +48,7 @@ const Dropdown = (props) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
                                     console.log(`Choosen value for Y-axes: ${title}`);
-                                    props.setSelectedAxes({y: title})
+                                    props.setSelectedYAxes(title)
                                 }} >{title}
                                 </DropdownItem>
                             );

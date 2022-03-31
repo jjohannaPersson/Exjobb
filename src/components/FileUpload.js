@@ -40,7 +40,7 @@ const FileUpload = (props) => {
             const sheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[sheetName];
             const json = XLSX.utils.sheet_to_json(worksheet);
-            // console.log(json);
+            console.log(json);
             props.setJsonData(json);
             // console.log(Object.keys(props.jsonData[0]))
         };
