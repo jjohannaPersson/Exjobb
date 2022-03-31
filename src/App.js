@@ -15,7 +15,9 @@ import BarCharts from './barChart.js';
 import PieChart from './pieChart.js';
 import SimpleBarChart from './simpleBarChart.js';
 import Home from './home.js';
-import Examples from './examples.js'
+import Examples from './examples.js';
+import Create from './components/Create';
+
 
 const App = () => (
     <Router>
@@ -23,6 +25,7 @@ const App = () => (
           <Container className="p-5 mb-4 bg-light rounded-3">
             <Switch>
                 <Route path='/' element={<Home/>} />
+                <Route path='/create' element={<Create/>} />
                 <Route path='/view' element={<Examples/>} />
                 <Route path='/simple' element={<SimpleBarChart/>} />
                 <Route path='/bar' element={<BarCharts/>} />

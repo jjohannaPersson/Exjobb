@@ -74,6 +74,10 @@ tr:nth-child(even) {
   margin-right: 1rem;
 }
 
+.dropdown {
+  margin-bottom: 1rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
