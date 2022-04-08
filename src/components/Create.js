@@ -36,6 +36,7 @@ const Create = () => {
         // users.map(user => {
         //     return console.log(user.username)
         // })
+
         return (
         <div className="header">
             <h1>Choose type of graph</h1>
