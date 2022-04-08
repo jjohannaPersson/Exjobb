@@ -90,7 +90,7 @@ const data = [
     },
 ];
 
-function SimpleBarChart() {
+function SimpleBarCharts() {
     return (
         <div class="content">
         <h1>Inkomst</h1>
@@ -125,4 +125,4 @@ function SimpleBarChart() {
       );
 }
 
-export default SimpleBarChart;
+export default SimpleBarCharts;
