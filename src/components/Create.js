@@ -36,13 +36,6 @@ const Create = () => {
         //     return console.log(user.username)
         // })
 
-    if(jsonData) {
-        if(selectedXAxes && selectedYAxes) {
-            console.log("är inuti");
-            return(
-            <SimpleBarChart jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
-        )
-        }
         return (
         <div className="header">
             <h1>Choose type of graph</h1>
