@@ -3,13 +3,9 @@ import './App.css';
 import {
     HashRouter as Router,
     Routes as Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import { LinkContainer } from 'react-router-bootstrap';
 
 import BarCharts from './barChart.js';
 import PieChart from './pieChart.js';
