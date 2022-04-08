@@ -5,16 +5,15 @@ import db from "../utils/firebase.config";
 
 import FileUpload from './FileUpload';
 import Dropdown from "./Dropdown";
+import SimpleBarChart from './SimpleBarChart';
 
 
 const Create = () => {
     const [file, setFile] = useState("");
     const [jsonData, setJsonData] = useState("");
     const [selectedGraph, setSelectedGraph] = useState("");
-    const [selectedAxes, setSelectedAxes] = useState({
-        x: "",
-        y: ""
-    });
+    const [selectedXAxes, setSelectedXAxes] = useState("");
+    const [selectedYAxes, setSelectedYAxes] = useState("");
     const [users, setUsers] = useState([]);
 
     const fetchUsers = async() => {
@@ -36,17 +35,27 @@ const Create = () => {
         // users.map(user => {
         //     return console.log(user.username)
         // })
+
+    if(jsonData) {
+        if(selectedXAxes && selectedYAxes) {
+            console.log("är inuti");
+            return(
+            <SimpleBarChart jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
+        )
+        }
         return (
         <div className="header">
             <h1>Choose type of graph</h1>
             <Dropdown
             selectedGraph={selectedGraph} setSelectedGraph={setSelectedGraph}
             jsonData={jsonData} setJsonData={setJsonData}
-            selectedAxes={selectedAxes} setSelectedAxes={setSelectedAxes}
+            selectedXAxes={selectedXAxes} setSelectedXAxes={setSelectedXAxes}
+            selectedYAxes={selectedYAxes} setSelectedYAxes={setSelectedYAxes}
             />
         </div>
         )
     }
+
     return (
         <div className="header">
             <h1>Upload file</h1>
