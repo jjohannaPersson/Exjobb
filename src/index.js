@@ -4,12 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Auth0Provider } from "@auth0/auth0-react";
 // import firebase from "./utils/firebase.config";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Auth0Provider
+    domain={process.env.REACT_APP_AUTH0_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH0_CLIENTID}
+    redirectUri={process.env.REACT_APP_AUTH0_CALLBACK_URL}
+    >
     <App />
-  </React.StrictMode>,
+  </Auth0Provider>,
   document.getElementById('root')
 );
 

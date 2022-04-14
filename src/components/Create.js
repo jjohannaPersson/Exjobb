@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import db from "../utils/firebase.config";
 
 import FileUpload from './FileUpload';
 import Dropdown from "./Dropdown";
 import SimpleBarChart from './SimpleBarChart';
 import BarChartThree from './BarChart';
+import db from '../utils/firebase.config.js';
 
 
 const Create = () => {

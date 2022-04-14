@@ -69,6 +69,15 @@ import { Link } from "react-router-dom";
 // ];
 
 const BarChartThree = (props) => {
+    // console.log(props.jsonData);
+    for (const key in props.jsonData) {
+        // console.log(props.jsonData[key]);
+        for (const k in props.jsonData[key]) {
+            let x = props.selectedXAxes
+            console.log(props.jsonData[key][x]);
+        }
+        // console.log(key);
+    }
     return (
         <div class="content">
         <h1>Fix</h1>
@@ -85,7 +94,7 @@ const BarChartThree = (props) => {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey={props.selectedXAxes} />
+              <XAxis dataKey={props.selectedXAxes} height={100} textAnchor= "end" sclaeToFit="true" verticalAnchor= "start"  interval={0} angle= "-40" stroke="#8884d8" label={{ value: props.selectedXAxes, position: "bottom", offset: 20 }}/>
                <YAxis label={{ value: props.selectedYAxes, position: "insideLeft", offset: -20 }} />
               <Tooltip />
               <Legend />
