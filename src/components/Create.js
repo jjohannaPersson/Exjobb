@@ -6,6 +6,7 @@ import db from "../utils/firebase.config";
 import FileUpload from './FileUpload';
 import Dropdown from "./Dropdown";
 import SimpleBarChart from './SimpleBarChart';
+import BarChartThree from './BarChart';
 
 
 const Create = () => {
@@ -23,25 +24,25 @@ const Create = () => {
             setUsers([...users, element.data()]);
             console.log(element.data());
         });
-    }
+    };
 
 
     useEffect(() => {
         fetchUsers();
-      }, [])
-
-    if(jsonData) {
-
-        // users.map(user => {
-        //     return console.log(user.username)
-        // })
+    }, []);
 
     if(jsonData) {
         if(selectedXAxes && selectedYAxes) {
-            console.log("är inuti");
-            return(
-            <SimpleBarChart jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
-        )
+            if(selectedGraph == "Simple Bar Chart") {
+                return(
+                <SimpleBarChart jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
+                )
+            } else if (selectedGraph == "Bar Chart") {
+                console.log("Här");
+                return(
+                <BarChartThree jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
+                )
+            }
         }
         return (
         <div className="header">
