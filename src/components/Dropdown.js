@@ -4,7 +4,7 @@ import { DropdownButton } from 'react-bootstrap';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 const Dropdown = (props) => {
-    let typesOfGraphs = ["Bar Chart", "Pie Chart"];
+    let typesOfGraphs = ["Simple Bar Chart","Bar Chart", "Pie Chart"];
     let titles;
 
     if (props.jsonData) {
@@ -29,6 +29,33 @@ const Dropdown = (props) => {
         );
     }
     switch(props.selectedGraph) {
+        case "Simple Bar Chart":
+            return (
+                <>
+                    <DropdownButton id="dropdown-basic-button" title="Select X-axes">
+                    {titles.map((title) => {
+                            return (
+                                <DropdownItem key={Date.now() + Math.random()} onClick={e => {
+                                    console.log(`Choosen value for X-axes: ${title}`);
+                                    props.setSelectedXAxes(title);
+                                }} >{title}
+                                </DropdownItem>
+                            );
+                        })}
+                    </DropdownButton>
+                    <DropdownButton id="dropdown-basic-button" title="Select Y-axes">
+                    {titles.map((title) => {
+                            return (
+                                <DropdownItem key={Date.now() + Math.random()} onClick={e => {
+                                    console.log(`Choosen value for Y-axes: ${title}`);
+                                    props.setSelectedYAxes(title)
+                                }} >{title}
+                                </DropdownItem>
+                            );
+                        })}
+                    </DropdownButton>
+                </>
+            );
         case "Bar Chart":
             return (
                 <>

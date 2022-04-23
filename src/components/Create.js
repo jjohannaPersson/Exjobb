@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -6,6 +6,9 @@ import Button from 'react-bootstrap/Button';
 
 import FileUpload from './FileUpload';
 import Dropdown from "./Dropdown";
+import SimpleBarChart from './SimpleBarChart';
+import BarChartThree from './BarChart';
+import db from '../utils/firebase.config.js';
 
 
 const Create = () => {
@@ -14,8 +17,35 @@ const Create = () => {
     const [selectedGraph, setSelectedGraph] = useState("");
     const [selectedXAxes, setSelectedXAxes] = useState("");
     const [selectedYAxes, setSelectedYAxes] = useState("");
+    const [users, setUsers] = useState([]);
+
+    const fetchUsers = async() => {
+        const response = db.collection('users');
+        const data = await response.get();
+        data.docs.forEach(element => {
+            setUsers([...users, element.data()]);
+            console.log(element.data());
+        });
+    };
+
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
 
     if(jsonData) {
+        if(selectedXAxes && selectedYAxes) {
+            if(selectedGraph == "Simple Bar Chart") {
+                return(
+                <SimpleBarChart jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
+                )
+            } else if (selectedGraph == "Bar Chart") {
+                console.log("Här");
+                return(
+                <BarChartThree jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
+                )
+            }
+        }
         return (
         <div className="header">
             <h1>Choose type of graph</h1>

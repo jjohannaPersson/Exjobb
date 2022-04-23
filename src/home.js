@@ -31,14 +31,7 @@ function Home(props) {
 
 
     return (
-      <div className="wrapper">
-              {!isAuthenticated ? (
-        <div>
-          <p style={{ fontSize: "1.5rem" }}>Please Login.</p>
-            <LoginButton />
-        </div>
-      ) :
-        <><div className="header">
+        <div className="header">
             <h1>Grafer och Diagram</h1>
             <ButtonToolbar className="custom-btn-toolbar">
               <LinkContainer to="/create">
@@ -51,13 +44,29 @@ function Home(props) {
                 <Button>Ladda upp och visa befintliga diagram</Button>
               </LinkContainer>
             </ButtonToolbar>
-          </div><div>
-              <LogoutButton />
-              <User />
-            </div>
-            </>
-            }
-      </div>
+        </div>
+      // <div className="wrapper">
+      //         {!isAuthenticated ? (
+      //   <div>
+      //     <p style={{ fontSize: "1.5rem" }}>Please Login.</p>
+      //      <LoginButton />
+      //   </div>
+      // ) :
+      //   <><div className="header">
+      //       <h1>Grafer och Diagram</h1>
+      //       <ButtonToolbar className="custom-btn-toolbar">
+      //         <LinkContainer to="/create">
+      //           <Button>Skapa nytt diagram</Button>
+      //         </LinkContainer>
+      //         <LinkContainer to="/view">
+      //           <Button>Visa befintliga diagram</Button>
+      //         </LinkContainer>
+      //       </ButtonToolbar>
+      //     </div><div>
+      //         <LogoutButton />
+      //         <User />
+      //       </div></>}
+      // </div>
     );
 }
 
