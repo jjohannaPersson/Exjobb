@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import db from "./utils/firebase.config";
+import React, { useEffect } from "react";
+import { app } from "./utils/firebase.config";
 import Button from 'react-bootstrap/Button';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -8,32 +8,34 @@ import LoginButton from './components/login/Login';
 import LogoutButton from './components/login/Logout';
 import User from './components/login/User';
 
-function Home() {
-  const { user, isAuthenticated } = useAuth0();
-  const [authedUser, setAuthedUser] = useState("");
+const db = app.firestore();
 
-    const fetchUsers = async() => {
-    const response = db.collection('users');
-    const data = await response.get();
-    data.docs.forEach(element => {
-        // setUsers([...users, element.data()]);
-        if (user && element.data().email === user.email) {
-          setAuthedUser(element.data());
-          console.log(`From database: ${JSON.stringify(element.data())}`);
-        }
-    });
-  }
+function Home(props) {
+  const { docId, setDocId } = props;
+  const { user, isAuthenticated } = useAuth0();
+
 
   useEffect(() => {
+    const fetchUsers = async() => {
+      const usersCollection = await db.collection("users").get()
+      usersCollection.docs.forEach(doc => {
+        // setUsers([...users, doc.data()]);
+        if (user && doc.data().email === user.email) {
+          // console.log(`From database: ${JSON.stringify(doc.data())}`);
+          setDocId(doc.id);
+        }
+    });
+    }
     fetchUsers();
-  }, [isAuthenticated])
+  }, [user, docId, setDocId])
+
 
     return (
       <div className="wrapper">
               {!isAuthenticated ? (
         <div>
           <p style={{ fontSize: "1.5rem" }}>Please Login.</p>
-           <LoginButton />
+            <LoginButton />
         </div>
       ) :
         <><div className="header">
@@ -42,14 +44,19 @@ function Home() {
               <LinkContainer to="/create">
                 <Button>Skapa nytt diagram</Button>
               </LinkContainer>
-              <LinkContainer to="/view">
+              <LinkContainer to="/example">
                 <Button>Visa befintliga diagram</Button>
+              </LinkContainer>
+              <LinkContainer to="/view">
+                <Button>Ladda upp och visa befintliga diagram</Button>
               </LinkContainer>
             </ButtonToolbar>
           </div><div>
               <LogoutButton />
               <User />
-            </div></>}
+            </div>
+            </>
+            }
       </div>
     );
 }

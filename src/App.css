@@ -78,6 +78,15 @@ tr:nth-child(even) {
   margin-bottom: 1rem;
 }
 
+.new-customer-section {
+  width: 75%;
+  margin: auto;
+}
+
+#button-addon2 {
+  margin: 0;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

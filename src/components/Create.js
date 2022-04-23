@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import { LinkContainer } from 'react-router-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 import FileUpload from './FileUpload';
 import Dropdown from "./Dropdown";
@@ -35,6 +37,9 @@ const Create = () => {
                 file={file} setFile={setFile}
                 jsonData={jsonData} setJsonData={setJsonData}
                 />
+                <LinkContainer to="/">
+                    <Button variant="outline-primary">Startsida</Button>
+                </LinkContainer>
             </ButtonToolbar>
         </div>
     );
