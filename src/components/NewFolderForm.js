@@ -25,6 +25,7 @@ function NewFolderForm(props) {
       };
     return (
         <>
+
             <InputGroup className="mb-3">
             <FormControl
               placeholder="Ny kund"

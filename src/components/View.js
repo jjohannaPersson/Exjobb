@@ -12,15 +12,17 @@ function View(props) {
     const [folders, setFolders] = useState([]);
 
   useEffect(() => {
-    const unmount = db.collection("users").doc(docId).collection("folders").onSnapshot((snapshot) => {
-      const tempFolders = [];
-      snapshot.forEach((doc) => {
-        tempFolders.push({ ...doc.data(), id: doc.id });
+    if (docId) {
+      const unmount = db.collection("users").doc(docId).collection("folders").onSnapshot((snapshot) => {
+        const tempFolders = [];
+        snapshot.forEach((doc) => {
+          tempFolders.push({ ...doc.data(), id: doc.id });
+        });
+        setFolders(tempFolders);
       });
-      setFolders(tempFolders);
-    });
-    return unmount;
-  }, []);
+      return unmount;
+    }
+  },[docId]);
 
     return (
       <div className="wrapper">

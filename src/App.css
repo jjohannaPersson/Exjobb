@@ -87,6 +87,10 @@ tr:nth-child(even) {
   margin: 0;
 }
 
+.form-control {
+  resize: both;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

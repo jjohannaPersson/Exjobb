@@ -11,7 +11,7 @@ import User from './components/login/User';
 const db = app.firestore();
 
 function Home(props) {
-  const { docId, setDocId } = props;
+  const { docId, setDocId, folders, setFolders } = props;
   const { user, isAuthenticated } = useAuth0();
 
 
@@ -23,15 +23,44 @@ function Home(props) {
         if (user && doc.data().email === user.email) {
           // console.log(`From database: ${JSON.stringify(doc.data())}`);
           setDocId(doc.id);
+          const unmount = db.collection("users").doc(doc.id).collection("folders").onSnapshot((snapshot) => {
+            const tempFolders = [];
+            snapshot.forEach((doc) => {
+              tempFolders.push({ ...doc.data(), id: doc.id });
+            });
+            setFolders(tempFolders);
+          });
+          return unmount;
         }
     });
     }
     fetchUsers();
-  }, [user, docId, setDocId])
+  }, [user, docId, setDocId, setFolders])
 
 
     return (
-        <div className="header">
+        // <div className="header">
+        //     <h1>Grafer och Diagram</h1>
+        //     <ButtonToolbar className="custom-btn-toolbar">
+        //       <LinkContainer to="/create">
+        //         <Button>Skapa nytt diagram</Button>
+        //       </LinkContainer>
+        //       <LinkContainer to="/example">
+        //         <Button>Visa befintliga diagram</Button>
+        //       </LinkContainer>
+        //       <LinkContainer to="/view">
+        //         <Button>Ladda upp och visa befintliga diagram</Button>
+        //       </LinkContainer>
+        //     </ButtonToolbar>
+        // </div>
+      <div className="wrapper">
+              {!isAuthenticated ? (
+        <div>
+          <p style={{ fontSize: "1.5rem" }}>Please Login.</p>
+           <LoginButton />
+        </div>
+      ) :
+        <><div className="header">
             <h1>Grafer och Diagram</h1>
             <ButtonToolbar className="custom-btn-toolbar">
               <LinkContainer to="/create">
@@ -44,29 +73,11 @@ function Home(props) {
                 <Button>Ladda upp och visa befintliga diagram</Button>
               </LinkContainer>
             </ButtonToolbar>
-        </div>
-      // <div className="wrapper">
-      //         {!isAuthenticated ? (
-      //   <div>
-      //     <p style={{ fontSize: "1.5rem" }}>Please Login.</p>
-      //      <LoginButton />
-      //   </div>
-      // ) :
-      //   <><div className="header">
-      //       <h1>Grafer och Diagram</h1>
-      //       <ButtonToolbar className="custom-btn-toolbar">
-      //         <LinkContainer to="/create">
-      //           <Button>Skapa nytt diagram</Button>
-      //         </LinkContainer>
-      //         <LinkContainer to="/view">
-      //           <Button>Visa befintliga diagram</Button>
-      //         </LinkContainer>
-      //       </ButtonToolbar>
-      //     </div><div>
-      //         <LogoutButton />
-      //         <User />
-      //       </div></>}
-      // </div>
+          </div><div>
+              <LogoutButton />
+              <User />
+            </div></>}
+      </div>
     );
 }
 

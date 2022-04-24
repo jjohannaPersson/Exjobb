@@ -8,9 +8,9 @@ import GraphUpload from "./GraphUpload";
 const db = app.firestore();
 
 function Folder(props) {
-    const { docId } = props;
-    const [graphs, setGraphs] = useState([]);
-    const [current, setCurrent] = useState("");
+    const { docId, current, setCurrent, graphs, setGraphs } = props;
+    // const [graphs, setGraphs] = useState([]);
+    // const [current, setCurrent] = useState("");
     const [image, setImage] = useState("");
 
       useEffect(() => {
@@ -20,16 +20,18 @@ function Folder(props) {
         let urlElement = urlElements[length - 1];
         setCurrent(decodeURI(urlElement));
           if (docId && current) {
-              const graphs = await db.collection("users").doc(docId).collection("folders").doc(current).collection("graphs").get();
-              setGraphs(graphs.docs.map((doc) => {
-                  // console.log(doc.data());
-                return doc.data();
-                })
-              );
+              const unmount = db.collection("users").doc(docId).collection("folders").doc(current).collection("graphs").onSnapshot((snapshot) => {
+                const tempGraphs = [];
+                snapshot.forEach((doc) => {
+                  tempGraphs.push({ ...doc.data(), id: doc.id });
+                });
+                setGraphs(tempGraphs);
+              });
+              return unmount;
             }
       }
       fetchGraphs();
-    }, [docId, current, image])
+    }, [docId, current, image, setCurrent])
 
     return <>
     <h1>{current}</h1>
@@ -44,10 +46,12 @@ function Folder(props) {
       <ul style={{ listStyleType: "none", padding: 0}}>
       {graphs.map((graph) => {
         return (
-          <li key={graph.name}>
+          <LinkContainer to={`/view/${current}/${graph.id}`}>
+          <li key={Date.now() + Math.random()}>
             <img width="400" src={graph.img} alt={graph.name} />
             <p>{graph.name}</p>
           </li>
+          </LinkContainer>
           );
         })}
       </ul>
