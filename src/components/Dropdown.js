@@ -4,7 +4,7 @@ import { DropdownButton } from 'react-bootstrap';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 const Dropdown = (props) => {
-    let typesOfGraphs = ["Simple Bar Chart","Bar Chart", "Pie Chart"];
+    let typesOfGraphs = ["Simple Bar Chart", "Pie Chart"];
     let titles;
 
     if (props.jsonData) {
@@ -56,37 +56,20 @@ const Dropdown = (props) => {
                     </DropdownButton>
                 </>
             );
-        case "Bar Chart":
+        case "Pie Chart":
             return (
                 <>
-                    <DropdownButton id="dropdown-basic-button" title="Select X-axes">
+                    <DropdownButton id="dropdown-basic-button" title="Select values">
                     {titles.map((title) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
-                                    console.log(`Choosen value for X-axes: ${title}`);
+                                    console.log(`Choosen value: ${title}`);
                                     props.setSelectedXAxes(title);
                                 }} >{title}
                                 </DropdownItem>
                             );
                         })}
                     </DropdownButton>
-                    <DropdownButton id="dropdown-basic-button" title="Select Y-axes">
-                    {titles.map((title) => {
-                            return (
-                                <DropdownItem key={Date.now() + Math.random()} onClick={e => {
-                                    console.log(`Choosen value for Y-axes: ${title}`);
-                                    props.setSelectedYAxes(title)
-                                }} >{title}
-                                </DropdownItem>
-                            );
-                        })}
-                    </DropdownButton>
-                </>
-            );
-        case "Pie Chart":
-            return (
-                <>
-                    <h1>Pie Chart</h1>
                 </>
             );
         default:

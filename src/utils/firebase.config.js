@@ -1,5 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
+import "firebase/compat/storage";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -12,8 +13,8 @@ const firebaseConfig = {
     measurementId: "G-2FPYNDG173"
   };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const app = firebase.initializeApp(firebaseConfig);
 
-const db = firebaseApp.firestore();
+// const db = app.firestore();
 
-export default db;
+// export default db;

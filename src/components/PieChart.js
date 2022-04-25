@@ -1,14 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  LabelList
-} from "recharts";
+import React, { useCallback, useState, useRef, useEffect } from "react";
+import { PieChart, Pie, Cell } from "recharts";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from "react-bootstrap";
@@ -24,7 +15,36 @@ import { app } from "../utils/firebase.config";
 
 const db = app.firestore();
 
-const SimpleBarChart = (props) => {
+const COLORS = ["#0088FE", "#00C49F", "#FF333D", "#FFBB28", "#FF8042", "#BF14C4"];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  index
+}: any) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+
+function PieCharts(props) {
     const { docId, current, folders } = props;
     const myContainer = useRef(null);
     const [fileUrl, setFileUrl] = useState(null);
@@ -32,8 +52,6 @@ const SimpleBarChart = (props) => {
     const [text, setText] = useState("");
     const [tempTitle, setTempTitle] = useState("Titel");
     const [selectedFolder, setSelectedFolder] = useState("");
-
-    // let node = document.getElementById('graph');
 
     htmlToImage.toPng(myContainer.current)
     .then(function (dataUrl) {
@@ -92,47 +110,29 @@ const SimpleBarChart = (props) => {
       setSelectedFolder(e.target.value);
     };
 
-
-    console.log(props.selectedYAxes);
-
     return (
-      <>
-        <div className="content" id="graph" ref={myContainer}>
-        <h1>{title}</h1>
-        <div className="bar">
-            <BarChart
-              width={1200}
-              height={500}
-              data={props.jsonData}
-              margin={{
-                top: 5,
-                right: 70,
-                left: 20,
-                bottom: 60
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey={props.selectedXAxes} height={100} textAnchor= "end" sclaeToFit="true" verticalAnchor= "start"  interval={0} angle= "-40" stroke="#8884d8" label={{ value: props.selectedXAxes, position: "bottom", offset: 20 }}/>
-              <YAxis label={{ value: props.selectedYAxes, position: "insideLeft", offset: -20 }} />
-              <Tooltip />
-
-              <Bar dataKey={props.selectedYAxes} fill="#8884d890">
-              <LabelList dataKey={props.selectedYAxes} position="top"/>
-              </Bar>
-            </BarChart>
+        <>
+        <div class="content" id="graph" ref={myContainer}>
+            <h1>{title}</h1>
+            <div className="pie">
+                <PieChart width={400} height={400}>
+                  <Pie
+                    data={props.jsonData}
+                    cx={200}
+                    cy={200}
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey={props.selectedXAxes}
+                  >
+                    {props.jsonData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                </PieChart>
+            </div>
         </div>
-        </div>
-        {/* <Draggable>
-        <div>
-            <Form.Control
-              as="textarea" placeholder="Textruta"
-            />
-        </div>
-        </Draggable>
-            <Button variant="outline-secondary" id="button-addon2" onClick={updateText}>
-              Uppdatera textruta
-            </Button> */}
-
         <InputGroup className="mb-3">
             <Form.Control
               type="text" placeholder="Titel"
@@ -157,8 +157,8 @@ const SimpleBarChart = (props) => {
         <LinkContainer to="/">
                 <Button variant="outline-primary">Startsida</Button>
         </LinkContainer>
-      </>
-      );
+        </>
+    );
 }
 
-export default SimpleBarChart;
+export default PieCharts;

@@ -69,7 +69,7 @@ import { Link } from "react-router-dom";
 // ];
 
 const BarChartThree = (props) => {
-    // console.log(props.jsonData);
+    console.log(props.jsonData);
     for (const key in props.jsonData) {
         // console.log(props.jsonData[key]);
         for (const k in props.jsonData[key]) {
