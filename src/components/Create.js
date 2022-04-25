@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-
+import { LinkContainer } from 'react-router-bootstrap';
+import Button from 'react-bootstrap/Button';
+import { app } from "../utils/firebase.config";
 import FileUpload from './FileUpload';
 import Dropdown from "./Dropdown";
 import SimpleBarChart from './SimpleBarChart';
 import BarChartThree from './BarChart';
-import db from '../utils/firebase.config.js';
+
+const db = app.firestore();
 
 
-const Create = () => {
+const Create = (props) => {
+    const { docId, current, folders } = props;
     const [file, setFile] = useState("");
     const [jsonData, setJsonData] = useState("");
     const [selectedGraph, setSelectedGraph] = useState("");
@@ -17,25 +21,29 @@ const Create = () => {
     const [selectedYAxes, setSelectedYAxes] = useState("");
     const [users, setUsers] = useState([]);
 
-    const fetchUsers = async() => {
-        const response = db.collection('users');
-        const data = await response.get();
-        data.docs.forEach(element => {
-            setUsers([...users, element.data()]);
-            console.log(element.data());
-        });
-    };
+    // const fetchUsers = async() => {
+    //     const response = db.collection('users');
+    //     const data = await response.get();
+    //     data.docs.forEach(element => {
+    //         setUsers([...users, element.data()]);
+    //         console.log(element.data());
+    //     });
+    // };
 
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
+    // useEffect(() => {
+    //     fetchUsers();
+    // }, []);
 
     if(jsonData) {
         if(selectedXAxes && selectedYAxes) {
             if(selectedGraph == "Simple Bar Chart") {
                 return(
-                <SimpleBarChart jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
+                <SimpleBarChart 
+                jsonData={jsonData}
+                selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}
+                docId={docId} current={current} folders={folders}
+                />
                 )
             } else if (selectedGraph == "Bar Chart") {
                 console.log("Här");
@@ -65,6 +73,9 @@ const Create = () => {
                 file={file} setFile={setFile}
                 jsonData={jsonData} setJsonData={setJsonData}
                 />
+                <LinkContainer to="/">
+                    <Button variant="outline-primary">Startsida</Button>
+                </LinkContainer>
             </ButtonToolbar>
         </div>
     );
