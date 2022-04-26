@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import FileUpload from './FileUpload';
 import Dropdown from "./Dropdown";
 import SimpleBarChart from './SimpleBarChart';
-import BarChartThree from './BarChart';
+import PieCharts from './PieChart';
 
 
 const Create = (props) => {
@@ -21,7 +21,7 @@ const Create = (props) => {
         if(selectedXAxes && selectedYAxes) {
             if(selectedGraph === "Simple Bar Chart") {
                 return(
-                <SimpleBarChart 
+                <SimpleBarChart
                 jsonData={jsonData}
                 selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}
                 docId={docId} current={current} folders={folders}
@@ -30,7 +30,9 @@ const Create = (props) => {
             } else if (selectedGraph === "Bar Chart") {
                 console.log("Här");
                 return(
-                <BarChartThree jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}/>
+                <PieCharts jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}
+                docId={docId} current={current} folders={folders}
+                />
                 )
             }
         }
