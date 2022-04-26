@@ -7,6 +7,8 @@ const Dropdown = (props) => {
     let typesOfGraphs = ["Simple Bar Chart", "Pie Chart"];
     const [xTitle, setxTitle]=useState('Select X-axes');
     const [yTitle, setyTitle]=useState('Select Y-axes');
+    const [valueTitle, setValueTitle]=useState('Select Value');
+    const [labelTitle, setLabelTitle]=useState('Select Label');
     let titles;
 
     if (props.jsonData) {
@@ -50,7 +52,7 @@ const Dropdown = (props) => {
                     {titles.map((title) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
-                                    setyTitle(title);;
+                                    setyTitle(title);
                                     console.log(`Choosen value for Y-axes: ${title}`);
                                     props.setSelectedYAxes(title)
                                 }} >{title}
@@ -63,12 +65,25 @@ const Dropdown = (props) => {
         case "Pie Chart":
             return (
                 <>
-                    <DropdownButton id="dropdown-basic-button" title="Select values">
+                    <DropdownButton id="dropdown-basic-button" title={valueTitle}>
                     {titles.map((title) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
+                                    setValueTitle(title);
                                     console.log(`Choosen value: ${title}`);
                                     props.setSelectedXAxes(title);
+                                }} >{title}
+                                </DropdownItem>
+                            );
+                        })}
+                    </DropdownButton>
+                    <DropdownButton id="dropdown-basic-button" title={labelTitle}>
+                    {titles.map((title) => {
+                            return (
+                                <DropdownItem key={Date.now() + Math.random()} onClick={e => {
+                                    setLabelTitle(title);
+                                    console.log(`Choosen label: ${title}`);
+                                    props.setSelectedYAxes(title);
                                 }} >{title}
                                 </DropdownItem>
                             );

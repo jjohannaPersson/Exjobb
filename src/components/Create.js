@@ -36,21 +36,23 @@ const Create = (props) => {
     // }, []);
 
     if(jsonData) {
-        if(selectedGraph == "Simple Bar Chart" && selectedXAxes && selectedYAxes) {
-            return(
-            <SimpleBarChart
-            jsonData={jsonData}
-            selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}
-            docId={docId} current={current} folders={folders}
-            />
-            )
-        } else if (selectedGraph == "Pie Chart" && selectedXAxes) {
-            console.log("Här");
-            return(
-            <PieCharts jsonData={jsonData} selectedXAxes={selectedXAxes}
-            docId={docId} current={current} folders={folders}
-            />
-            )
+        if (selectedXAxes && selectedYAxes) {
+            if(selectedGraph == "Simple Bar Chart") {
+                return(
+                <SimpleBarChart
+                jsonData={jsonData}
+                selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}
+                docId={docId} current={current} folders={folders}
+                />
+                )
+            } else if (selectedGraph == "Pie Chart") {
+                console.log("Här");
+                return(
+                <PieCharts jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}
+                docId={docId} current={current} folders={folders}
+                />
+                )
+            }
         }
         return (
         <div className="header">

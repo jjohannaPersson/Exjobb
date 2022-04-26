@@ -17,33 +17,6 @@ const db = app.firestore();
 
 const COLORS = ["#0088FE", "#00C49F", "#FF333D", "#FFBB28", "#FF8042", "#BF14C4"];
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-  index
-}: any) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
-    >
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
-
 function PieCharts(props) {
     const { docId, current, folders } = props;
     const myContainer = useRef(null);
@@ -64,7 +37,6 @@ function PieCharts(props) {
       console.error('oops, something went wrong!', error);
     });
 
-
     // save iage to database
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -81,9 +53,6 @@ function PieCharts(props) {
       img: fileUrl
     });
   }
-
-
-
 
     const generatePDF = () => {
 
@@ -120,8 +89,32 @@ function PieCharts(props) {
                     data={props.jsonData}
                     cx={200}
                     cy={200}
-                    labelLine={false}
-                    label={renderCustomizedLabel}
+                    labelLine={true}
+                    label={({
+                      cx,
+                      cy,
+                      midAngle,
+                      innerRadius,
+                      outerRadius,
+                      value,
+                      index
+                    }) => {
+                      const RADIAN = Math.PI / 180;
+                      const radius = 25 + innerRadius + (outerRadius - innerRadius);
+                      const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                      const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                      return (
+                        <text
+                          x={x}
+                          y={y}
+                          fill={COLORS[index % COLORS.length]}
+                          textAnchor={x > cx ? "start" : "end"}
+                          dominantBaseline="central"
+                        >
+                          {props.jsonData[index][props.selectedYAxes]} ({value})
+                        </text>
+                      );
+                    }}
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey={props.selectedXAxes}
