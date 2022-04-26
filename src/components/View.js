@@ -4,12 +4,19 @@ import Button from 'react-bootstrap/Button';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import NewFolderForm from "./NewFolderForm";
+import AlertBox from "./Alert";
 
 const db = app.firestore();
 
 function View(props) {
     const { docId } = props;
     const [folders, setFolders] = useState([]);
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState({
+      type: "",
+      title: "",
+      text: ""
+    })
 
   useEffect(() => {
     if (docId) {
@@ -44,7 +51,14 @@ function View(props) {
                   })}
               </section>
               <section className="new-customer-section">
-              <NewFolderForm docId={docId}/>
+              <AlertBox
+            message={message}
+            show={show} setShow={setShow}
+            />
+            <NewFolderForm
+            docId={docId}
+            setMessage={setMessage} setShow={setShow}
+            />
               </section>
             </ButtonToolbar>
           </div>

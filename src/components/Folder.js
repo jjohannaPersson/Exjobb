@@ -4,14 +4,19 @@ import Button from 'react-bootstrap/Button';
 import { LinkContainer } from 'react-router-bootstrap';
 import { app } from "../utils/firebase.config";
 import GraphUpload from "./GraphUpload";
+import AlertBox from "./Alert";
 
 const db = app.firestore();
 
 function Folder(props) {
     const { docId, current, setCurrent, graphs, setGraphs } = props;
-    // const [graphs, setGraphs] = useState([]);
-    // const [current, setCurrent] = useState("");
     const [image, setImage] = useState("");
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState({
+      type: "",
+      title: "",
+      text: ""
+    })
 
       useEffect(() => {
       const fetchGraphs = async() => {
@@ -31,7 +36,7 @@ function Folder(props) {
             }
       }
       fetchGraphs();
-    }, [docId, current, image, setCurrent])
+    }, [docId, current, image, setCurrent, setGraphs])
 
     return <>
     <h1>{current}</h1>
@@ -40,13 +45,20 @@ function Folder(props) {
       <LinkContainer to="/view">
         <Button variant="outline-primary">Tillbaka</Button>
       </LinkContainer>
-      <GraphUpload docId={docId} current={current} setImage={setImage} />
+      <AlertBox
+            message={message}
+            show={show} setShow={setShow}
+            />
+      <GraphUpload
+      docId={docId} current={current} setImage={setImage}
+      setMessage={setMessage} setShow={setShow}
+      />
     </ButtonToolbar>
     <div>
       <ul style={{ listStyleType: "none", padding: 0}}>
       {graphs.map((graph) => {
         return (
-          <LinkContainer to={`/view/${current}/${graph.id}`}>
+          <LinkContainer key={Date.now() + Math.random()} to={`/view/${current}/${graph.id}`}>
           <li key={Date.now() + Math.random()}>
             <img width="400" src={graph.img} alt={graph.name} />
             <p>{graph.name}</p>

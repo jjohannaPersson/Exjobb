@@ -14,11 +14,11 @@ const Dropdown = (props) => {
     if (!props.selectedGraph) {
         return (
             <>
-                <DropdownButton id="dropdown-basic-button" title="Select graph">
+                <DropdownButton id="dropdown-basic-button" title="Välj graf">
                 {typesOfGraphs.map((graph) => {
                         return (
                             <DropdownItem key={Date.now() + Math.random()} onClick={e => {
-                                console.log(`Choosen graph: ${graph}`);
+                                console.log(`Vald graf: ${graph}`);
                                 props.setSelectedGraph(graph);
                             }} >{graph}
                             </DropdownItem>
@@ -32,7 +32,7 @@ const Dropdown = (props) => {
         case "Simple Bar Chart":
             return (
                 <>
-                    <DropdownButton id="dropdown-basic-button" title="Select X-axes">
+                    <DropdownButton id="dropdown-basic-button" title="Välj X-axel">
                     {titles.map((title) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
@@ -43,7 +43,7 @@ const Dropdown = (props) => {
                             );
                         })}
                     </DropdownButton>
-                    <DropdownButton id="dropdown-basic-button" title="Select Y-axes">
+                    <DropdownButton id="dropdown-basic-button" title="Välj Y-axel">
                     {titles.map((title) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
@@ -59,7 +59,7 @@ const Dropdown = (props) => {
         case "Bar Chart":
             return (
                 <>
-                    <DropdownButton id="dropdown-basic-button" title="Select X-axes">
+                    <DropdownButton id="dropdown-basic-button" title="Välj X-axel">
                     {titles.map((title) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
@@ -70,7 +70,7 @@ const Dropdown = (props) => {
                             );
                         })}
                     </DropdownButton>
-                    <DropdownButton id="dropdown-basic-button" title="Select Y-axes">
+                    <DropdownButton id="dropdown-basic-button" title="Välj Y-axel">
                     {titles.map((title) => {
                             return (
                                 <DropdownItem key={Date.now() + Math.random()} onClick={e => {
@@ -92,7 +92,7 @@ const Dropdown = (props) => {
         default:
             return (
                 <>
-                <h1>No selected chart</h1>
+                <h1>Ingen vald graf</h1>
                 </>
             )
 
@@ -101,8 +101,3 @@ const Dropdown = (props) => {
 
 export default Dropdown;
 
-            // <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-            //     <DropdownItem href="#/action-1">Action</DropdownItem>
-            //     <DropdownItem href="#/action-2">Another action</DropdownItem>
-            //     <DropdownItem href="#/action-3">Something else</DropdownItem>
-            // </DropdownButton>

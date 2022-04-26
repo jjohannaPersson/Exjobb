@@ -6,7 +6,7 @@ function User() {
 
   return (
   isAuthenticated && (
-    <div>Hello {user.email}</div>
+    <div>Hej {user.email}</div>
     )
   );
 }

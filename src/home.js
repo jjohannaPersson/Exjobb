@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { app } from "./utils/firebase.config";
 import Button from 'react-bootstrap/Button';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
@@ -13,29 +13,60 @@ const db = app.firestore();
 function Home(props) {
   const { docId, setDocId, folders, setFolders } = props;
   const { user, isAuthenticated } = useAuth0();
+  const [ existingUser, setExistingUser ] = useState(false);
 
 
   useEffect(() => {
     const fetchUsers = async() => {
-      const usersCollection = await db.collection("users").get()
-      usersCollection.docs.forEach(doc => {
-        // setUsers([...users, doc.data()]);
-        if (user && doc.data().email === user.email) {
-          // console.log(`From database: ${JSON.stringify(doc.data())}`);
-          setDocId(doc.id);
-          const unmount = db.collection("users").doc(doc.id).collection("folders").onSnapshot((snapshot) => {
-            const tempFolders = [];
-            snapshot.forEach((doc) => {
-              tempFolders.push({ ...doc.data(), id: doc.id });
-            });
-            setFolders(tempFolders);
+
+      let doc = await db.collection("users").doc(user.email).get();
+      if (doc && doc.exists) {
+        setDocId(doc.id);
+        const unmount = db.collection("users").doc(doc.id).collection("folders").onSnapshot((snapshot) => {
+          const tempFolders = [];
+          snapshot.forEach((doc) => {
+            tempFolders.push({ ...doc.data(), id: doc.id });
           });
-          return unmount;
-        }
-    });
+          setFolders(tempFolders);
+        });
+        return unmount;
+      } else {
+        await db.collection("users").doc(user.email).set({
+          email: user.email
+        });
+        setDocId(user.email);
+      }
+    //   const usersCollection = await db.collection("users").get()
+    //   usersCollection.docs.forEach(doc => {
+    //     // setUsers([...users, doc.data()]);
+    //     // user exists
+    //     if (user && doc.data().email === user.email) {
+    //       setExistingUser(true);
+    //       // console.log(`From database: ${JSON.stringify(doc.data())}`);
+    //       setDocId(doc.id);
+    //       const unmount = db.collection("users").doc(doc.id).collection("folders").onSnapshot((snapshot) => {
+    //         const tempFolders = [];
+    //         snapshot.forEach((doc) => {
+    //           tempFolders.push({ ...doc.data(), id: doc.id });
+    //         });
+    //         setFolders(tempFolders);
+    //       });
+    //       return unmount;
+    //     }
+    // });
+    // // add new user
+    // if (!existingUser) {
+    //   let res = db.collection("users").add({
+    //     email: user.email
+    //   });
+    //   setDocId(res.id);
+    // }
     }
-    fetchUsers();
-  }, [user, docId, setDocId, setFolders])
+    if (isAuthenticated) {
+      fetchUsers();
+    }
+
+  }, [user, docId, setDocId, setFolders, setExistingUser])
 
 
     return (
