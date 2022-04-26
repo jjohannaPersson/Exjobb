@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -6,94 +6,97 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   LabelList
 } from "recharts";
-import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from "react-bootstrap";
 import { InputGroup } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import { DropdownButton } from 'react-bootstrap';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
-import { jsPDF } from "jspdf";
-import * as htmlToImage from 'html-to-image';
-import Draggable from "react-draggable";
-import Rnd from 'react-rnd';
+import html2canvas from "html2canvas";
+import { Rnd } from 'react-rnd';
+import NewFolderForm from "./NewFolderForm";
+import Pdf from "./Pdf";
 import { app } from "../utils/firebase.config";
+import AlertBox from "./Alert";
+import ContentEditable from 'react-contenteditable'
 
 const db = app.firestore();
 
 const SimpleBarChart = (props) => {
-    const { docId, current, folders } = props;
+    const { docId, folders } = props;
+
     const myContainer = useRef(null);
-    const [fileUrl, setFileUrl] = useState(null);
+    const titleInput = useRef();
+    const textInput = useRef("");
+
     const [title, setTitle] = useState("");
-    const [text, setText] = useState("");
-    const [tempTitle, setTempTitle] = useState("Titel");
     const [selectedFolder, setSelectedFolder] = useState("");
+    const [isActive, setActive] = useState("false");
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState({
+      type: "",
+      title: "",
+      text: ""
+    })
 
-    // let node = document.getElementById('graph');
 
-    htmlToImage.toPng(myContainer.current)
-    .then(function (dataUrl) {
-      var img = new Image();
-      img.src = dataUrl;
-      // document.body.appendChild(img);
-      setFileUrl(dataUrl);
+  // save image to database
+  const onSubmit = async (e) => {
+
+    function addGraph(url) {
+      if (!title || !selectedFolder || selectedFolder === "Välj kund") {
+        console.error('oops, missing title or folder!');
+        setMessage({type: "warning", title: "Ojdå, något gick fel.", text: "Titel eller kund saknas."})
+        setShow(true);
+        return;
+      }
+      try {
+        db.collection("users").doc(docId).collection("folders").doc(selectedFolder).collection("graphs").add({
+          name: title,
+          img: url
+        });
+        console.info("img added to db");
+        setMessage({type: "success", title: "Allt gick bra!", text: 'Grafen har sparats i databasen.'})
+        setShow(true);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    e.preventDefault();
+
+    await html2canvas(document.querySelector('#graph'))
+    .then(function(canvas) {
+
+      const imgData = canvas.toDataURL("image/jpeg");
+
+      addGraph(imgData);
     })
     .catch(function (error) {
       console.error('oops, something went wrong!', error);
     });
-
-
-    // save iage to database
-  const onSubmit = async (e) => {
-    e.preventDefault()
-
-    // set imgname
-    const imgname = "test";
-    if (!title || !selectedFolder || !fileUrl) {
-      console.error('oops, something went wrong!');
-      return;
-    }
-    // remove hard coded docId and current client
-    await db.collection("users").doc(docId).collection("folders").doc(selectedFolder).collection("graphs").add({
-      name: title,
-      img: fileUrl
-    });
+  ;
   }
 
-
-
-
-    const generatePDF = () => {
-
-      const report = new jsPDF('portrait','pt','a4');
-      report.html(myContainer.current).then(() => {
-          report.save('graph.pdf');
-      });
-    }
-
-    useEffect(() => {
-      console.log(myContainer.current);
-      console.log(current, docId, folders);
-    }, [docId]);
-
-    const onTitleChange = (e) => {
-      setTempTitle(e.target.value);
+    const updateTitle = () => {
+      setTitle(titleInput.current.value);
     };
 
-    const updateTitle = () => {
-      setTitle(tempTitle);
+    const toggleTextArea = () => {
+      setActive(!isActive);
     };
 
     const onClientChange = (e) => {
       setSelectedFolder(e.target.value);
     };
 
+    const handleChange = evt => {
+      textInput.current = evt.target.value;
+  };
 
-    console.log(props.selectedYAxes);
+
+
+    // console.log(props.selectedYAxes);
 
     return (
       <>
@@ -121,39 +124,61 @@ const SimpleBarChart = (props) => {
               </Bar>
             </BarChart>
         </div>
+        <Rnd
+          default={{
+            x: 150,
+            y: 205,
+            width: 300,
+            height: 200,
+          }}
+          minWidth={100}
+          minHeight={50}
+          bounds="window"
+        >
+          <ContentEditable
+          onChange={handleChange}
+          html={textInput.current}
+          className="text-box"
+          style={isActive ? {"display": "none"} : {"display": "block"}}
+          />
+        </Rnd>
         </div>
-        {/* <Draggable>
-        <div>
-            <Form.Control
-              as="textarea" placeholder="Textruta"
+        <AlertBox
+            message={message}
+            show={show} setShow={setShow}
             />
-        </div>
-        </Draggable>
-            <Button variant="outline-secondary" id="button-addon2" onClick={updateText}>
-              Uppdatera textruta
-            </Button> */}
-
+        <Form.Label>Titel</Form.Label>
         <InputGroup className="mb-3">
             <Form.Control
               type="text" placeholder="Titel"
-              value={tempTitle}
-              onChange={onTitleChange}
+              ref={titleInput}
             />
             <Button variant="outline-secondary" id="button-addon2" onClick={updateTitle}>
               Uppdatera titel
             </Button>
           </InputGroup>
+          <Button variant="outline-secondary" onClick={toggleTextArea}>
+              {isActive ? "Lägg till textruta" : "Ta bort textruta"}
+            </Button>
+
           <Form.Select aria-label="Default select example"
           onChange={onClientChange}
           >
           <option>Välj kund</option>
           {folders.map((folder) => {
                   return (
-                      <option value={folder.name}>{folder.name}</option>
+                      <option key={Date.now() + Math.random()} value={folder.name}>{folder.name}</option>
                     );
                   })}
         </Form.Select>
+        <NewFolderForm
+            docId={docId}
+            setMessage={setMessage} setShow={setShow}/>
         <Button onClick={onSubmit}>Spara bild</Button>
+        <Pdf 
+        title={title}
+        setMessage={setMessage} setShow={setShow}
+        />
         <LinkContainer to="/">
                 <Button variant="outline-primary">Startsida</Button>
         </LinkContainer>

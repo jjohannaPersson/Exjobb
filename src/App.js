@@ -34,7 +34,7 @@ function App() {
                 <Route path='/' element={<Home docId={docId} setDocId={setDocId} folders={folders} setFolders={setFolders}/>} />
                 <Route path='/create' element={<Create docId={docId} current={current} folders={folders}/>} />
                 <Route path='/example' element={<Examples/>} />
-                <Route path='/view/*' element={<View docId={docId} />} />
+                <Route path='/view/*' element={<View docId={docId} folders={folders} setFolders={setFolders} />} />
                 <Route path="/view/:folder" element={<Folder docId={docId} current={current} setCurrent={setCurrent} graphs={graphs} setGraphs={setGraphs}/>}/>
                 <Route path="/view/:folder/:graph" element={<Graph docId={docId} current={current} graphs={graphs}/>}/>
                 <Route path='/simple' element={<SimpleBarCharts/>} />

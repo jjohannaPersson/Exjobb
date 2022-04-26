@@ -8,7 +8,7 @@ import { app } from "../utils/firebase.config";
 const db = app.firestore();
 
 function GraphUpload(props) {
-    const { docId, current, setImage } = props;
+    const { docId, current, setImage, setShow, setMessage } = props;
     const [fileUrl, setFileUrl] = useState(null);
 
     const onFileChange = async (e) => {
@@ -23,6 +23,8 @@ function GraphUpload(props) {
         e.preventDefault()
         const imgname = e.target.imgname.value;
         if (!imgname || !fileUrl) {
+          setMessage({type: "warning", title: "Ojdå, något gick fel.", text: "Namn eller vald fil saknas."})
+          setShow(true);
           return;
         }
     
@@ -30,6 +32,8 @@ function GraphUpload(props) {
           name: imgname,
           img: fileUrl
         });
+        setMessage({type: "success", title: "Allt gick bra!", text: 'Bilden har sparats i databasen.'})
+        setShow(true);
         setImage(imgname);
       }
 
@@ -39,10 +43,10 @@ function GraphUpload(props) {
       <Form.Label>Ladda upp fil</Form.Label>
       <Form.Control type="file" onChange={onFileChange}/>
       </Form.Group>
-
+      <Form.Label>Namn</Form.Label>
       <InputGroup className="mb-3">
         <FormControl
-          placeholder="Name"
+          placeholder="Namn"
           aria-label="Name"
           aria-describedby="basic-addon2"
           type="text"

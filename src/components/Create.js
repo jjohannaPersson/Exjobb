@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { app } from "../utils/firebase.config";
 import FileUpload from './FileUpload';
 import Dropdown from "./Dropdown";
 import SimpleBarChart from './SimpleBarChart';
 import PieCharts from './PieChart';
-
-const db = app.firestore();
 
 
 const Create = (props) => {
@@ -19,25 +16,10 @@ const Create = (props) => {
     const [selectedGraph, setSelectedGraph] = useState("");
     const [selectedXAxes, setSelectedXAxes] = useState("");
     const [selectedYAxes, setSelectedYAxes] = useState("");
-    const [users, setUsers] = useState([]);
-
-    // const fetchUsers = async() => {
-    //     const response = db.collection('users');
-    //     const data = await response.get();
-    //     data.docs.forEach(element => {
-    //         setUsers([...users, element.data()]);
-    //         console.log(element.data());
-    //     });
-    // };
-
-
-    // useEffect(() => {
-    //     fetchUsers();
-    // }, []);
 
     if(jsonData) {
-        if (selectedXAxes && selectedYAxes) {
-            if(selectedGraph == "Simple Bar Chart") {
+        if(selectedXAxes && selectedYAxes) {
+            if(selectedGraph === "Simple Bar Chart") {
                 return(
                 <SimpleBarChart
                 jsonData={jsonData}
@@ -45,7 +27,7 @@ const Create = (props) => {
                 docId={docId} current={current} folders={folders}
                 />
                 )
-            } else if (selectedGraph == "Pie Chart") {
+            } else if (selectedGraph === "Bar Chart") {
                 console.log("Här");
                 return(
                 <PieCharts jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}
@@ -56,7 +38,7 @@ const Create = (props) => {
         }
         return (
         <div className="header">
-            <h1>Choose type of graph</h1>
+            <h1>Välj typ av graf</h1>
             <Dropdown
             selectedGraph={selectedGraph} setSelectedGraph={setSelectedGraph}
             jsonData={jsonData} setJsonData={setJsonData}
@@ -69,7 +51,7 @@ const Create = (props) => {
 
     return (
         <div className="header">
-            <h1>Upload file</h1>
+            <h1>Ladda upp fil</h1>
             <ButtonToolbar className="custom-btn-toolbar">
                 <FileUpload
                 file={file} setFile={setFile}
