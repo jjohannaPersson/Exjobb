@@ -8,19 +8,17 @@ import {
   Tooltip,
   LabelList
 } from "recharts";
+
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from "react-bootstrap";
 import { InputGroup } from "react-bootstrap";
 import { Form } from "react-bootstrap";
-import html2canvas from "html2canvas";
-import { Rnd } from 'react-rnd';
-import NewFolderForm from "./NewFolderForm";
-import Pdf from "./Pdf";
-import { app } from "../utils/firebase.config";
-import AlertBox from "./Alert";
-import ContentEditable from 'react-contenteditable'
 
-const db = app.firestore();
+import NewFolderForm from "./NewFolderForm";
+import Save from "./Save";
+import Pdf from "./Pdf";
+import AlertBox from "./Alert";
+import Textbox from "./Textbox";
 
 const SimpleBarChart = (props) => {
     const { docId, folders } = props;
@@ -39,45 +37,6 @@ const SimpleBarChart = (props) => {
       text: ""
     })
 
-
-  // save image to database
-  const onSubmit = async (e) => {
-
-    function addGraph(url) {
-      if (!title || !selectedFolder || selectedFolder === "Välj kund") {
-        console.error('oops, missing title or folder!');
-        setMessage({type: "warning", title: "Ojdå, något gick fel.", text: "Titel eller kund saknas."})
-        setShow(true);
-        return;
-      }
-      try {
-        db.collection("users").doc(docId).collection("folders").doc(selectedFolder).collection("graphs").add({
-          name: title,
-          img: url
-        });
-        console.info("img added to db");
-        setMessage({type: "success", title: "Allt gick bra!", text: 'Grafen har sparats i databasen.'})
-        setShow(true);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    e.preventDefault();
-
-    await html2canvas(document.querySelector('#graph'))
-    .then(function(canvas) {
-
-      const imgData = canvas.toDataURL("image/jpeg");
-
-      addGraph(imgData);
-    })
-    .catch(function (error) {
-      console.error('oops, something went wrong!', error);
-    });
-  ;
-  }
-
     const updateTitle = () => {
       setTitle(titleInput.current.value);
     };
@@ -89,14 +48,6 @@ const SimpleBarChart = (props) => {
     const onClientChange = (e) => {
       setSelectedFolder(e.target.value);
     };
-
-    const handleChange = evt => {
-      textInput.current = evt.target.value;
-  };
-
-
-
-    // console.log(props.selectedYAxes);
 
     return (
       <>
@@ -124,24 +75,7 @@ const SimpleBarChart = (props) => {
               </Bar>
             </BarChart>
         </div>
-        <Rnd
-          default={{
-            x: 150,
-            y: 205,
-            width: 300,
-            height: 200,
-          }}
-          minWidth={100}
-          minHeight={50}
-          bounds="window"
-        >
-          <ContentEditable
-          onChange={handleChange}
-          html={textInput.current}
-          className="text-box"
-          style={isActive ? {"display": "none"} : {"display": "block"}}
-          />
-        </Rnd>
+        <Textbox textInput={textInput} isActive={isActive}/>
         </div>
         <AlertBox
             message={message}
@@ -174,7 +108,12 @@ const SimpleBarChart = (props) => {
         <NewFolderForm
             docId={docId}
             setMessage={setMessage} setShow={setShow}/>
-        <Button onClick={onSubmit}>Spara bild</Button>
+        <Save 
+        docId={docId}
+        selectedFolder={selectedFolder}
+        title={title}
+        setMessage={setMessage} setShow={setShow}
+        />
         <Pdf 
         title={title}
         setMessage={setMessage} setShow={setShow}

@@ -6,7 +6,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   LabelList
 } from "recharts";
 import { Link } from "react-router-dom";

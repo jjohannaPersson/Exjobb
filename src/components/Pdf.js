@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from 'react-bootstrap/Button';
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
