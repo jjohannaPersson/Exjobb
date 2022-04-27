@@ -19,6 +19,7 @@ import Save from "./Save";
 import Pdf from "./Pdf";
 import AlertBox from "./Alert";
 import Textbox from "./Textbox";
+import Description from "./Description";
 
 const SimpleBarChart = (props) => {
     const { docId, folders } = props;
@@ -26,6 +27,7 @@ const SimpleBarChart = (props) => {
     const myContainer = useRef(null);
     const titleInput = useRef();
     const textInput = useRef("");
+    const descriptionInput = useRef("");
 
     const [title, setTitle] = useState("");
     const [selectedFolder, setSelectedFolder] = useState("");
@@ -76,25 +78,32 @@ const SimpleBarChart = (props) => {
             </BarChart>
         </div>
         <Textbox textInput={textInput} isActive={isActive}/>
+        <Description descriptionInput={descriptionInput} />
         </div>
+        <p className="custom-label">Beskrivning</p>
         <AlertBox
             message={message}
             show={show} setShow={setShow}
             />
-        <Form.Label>Titel</Form.Label>
+        <div className="edit-container">
+          <div className="edit-text">
+        <Form.Label>Rubrik</Form.Label>
         <InputGroup className="mb-3">
             <Form.Control
-              type="text" placeholder="Titel"
+              type="text" placeholder="Rubrik"
               ref={titleInput}
             />
             <Button variant="outline-secondary" id="button-addon2" onClick={updateTitle}>
-              Uppdatera titel
+              Uppdatera rubrik
             </Button>
           </InputGroup>
+
+
           <Button variant="outline-secondary" onClick={toggleTextArea}>
               {isActive ? "Lägg till textruta" : "Ta bort textruta"}
             </Button>
-
+            </div>
+          <Form.Label>Välj kund för att spara graf</Form.Label>
           <Form.Select aria-label="Default select example"
           onChange={onClientChange}
           >
@@ -121,6 +130,7 @@ const SimpleBarChart = (props) => {
         <LinkContainer to="/">
                 <Button variant="outline-primary">Startsida</Button>
         </LinkContainer>
+        </div>
       </>
       );
 }

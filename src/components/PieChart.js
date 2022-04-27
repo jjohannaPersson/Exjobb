@@ -11,6 +11,7 @@ import Save from "./Save";
 import Pdf from "./Pdf";
 import AlertBox from "./Alert";
 import Textbox from "./Textbox";
+import Description from "./Description";
 
 const COLORS = ["#0088FE", "#00C49F", "#FF333D", "#FFBB28", "#FF8042", "#BF14C4"];
 
@@ -20,6 +21,7 @@ function PieCharts(props) {
     const myContainer = useRef(null);
     const titleInput = useRef();
     const textInput = useRef("");
+    const descriptionInput = useRef("");
 
     const [title, setTitle] = useState("");
     const [selectedFolder, setSelectedFolder] = useState("");
@@ -90,11 +92,15 @@ function PieCharts(props) {
                 </PieChart>
             </div>
         <Textbox textInput={textInput} isActive={isActive}/>
+        <Description descriptionInput={descriptionInput} />
         </div>
+        <p className="custom-label">Beskrivning</p>
         <AlertBox
             message={message}
             show={show} setShow={setShow}
             />
+          <div className="edit-container">
+          <div className="edit-text">
         <Form.Label>Titel</Form.Label>
         <InputGroup className="mb-3">
             <Form.Control
@@ -108,7 +114,8 @@ function PieCharts(props) {
           <Button variant="outline-secondary" onClick={toggleTextArea}>
               {isActive ? "Lägg till textruta" : "Ta bort textruta"}
             </Button>
-
+          </div>
+          <Form.Label>Välj kund för att spara graf</Form.Label>
           <Form.Select aria-label="Default select example"
           onChange={onClientChange}
           >
@@ -135,6 +142,7 @@ function PieCharts(props) {
         <LinkContainer to="/">
                 <Button variant="outline-primary">Startsida</Button>
         </LinkContainer>
+        </div>
         </>
     );
 }

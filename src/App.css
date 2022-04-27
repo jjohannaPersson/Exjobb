@@ -80,8 +80,8 @@ tr:nth-child(even) {
   margin-bottom: 1rem;
 }
 
-.new-customer-section {
-  width: 75%;
+.new-section {
+  width: 40%;
   margin: auto;
 }
 
@@ -112,6 +112,60 @@ textarea.form-control {
     appearance: none;
     border-radius: 0.25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.description {
+  display: block;
+  text-align: center;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: #0b0c0e;
+  opacity: 75%;
+  padding: 0.375rem 0.75rem;
+  font-weight: 400;
+  /* background-color: #fff; */
+  background-clip: padding-box;
+  border-bottom: 1px solid #ced4da;
+  /* -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; */
+}
+
+.custom-label {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  position: relative;
+  /* left: 30px; */
+  bottom: 25px;
+}
+
+.edit-container {
+  width: 40%;
+  margin: auto;
+}
+
+.edit-container select {
+  margin-bottom: 0.5rem;
+}
+
+.edit-text button {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.img-container {
+  display: inline;
+}
+
+.img-container p {
+  display: inline;
+}
+
+.images {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 
 @keyframes App-logo-spin {

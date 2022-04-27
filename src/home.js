@@ -63,7 +63,7 @@ function Home(props) {
       <div className="wrapper">
               {!isAuthenticated ? (
         <div>
-          <p style={{ fontSize: "1.5rem" }}>Please Login.</p>
+          <p style={{ fontSize: "1.5rem" }}>Logga in.</p>
            <LoginButton />
         </div>
       ) :
