@@ -50,7 +50,7 @@ function PieCharts(props) {
     setSelectedFolder(e.target.value);
   };
 
-    console.log(props.jsonData[0]);
+    // console.log(props.jsonData[0]);
 
     return (
         <>
@@ -144,6 +144,7 @@ function PieCharts(props) {
         selectedFolder={selectedFolder}
         title={title}
         setMessage={setMessage} setShow={setShow}
+        setSelectedFolder={setSelectedFolder}
         />
         <Pdf
         title={title}
