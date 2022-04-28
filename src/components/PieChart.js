@@ -26,6 +26,7 @@ function PieCharts(props) {
     const [title, setTitle] = useState("");
     const [selectedFolder, setSelectedFolder] = useState("");
     const [isActive, setActive] = useState("false");
+    const [isVisible, setVisible] = useState("false");
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState({
       type: "",
@@ -41,11 +42,15 @@ function PieCharts(props) {
     setActive(!isActive);
   };
 
+  const toggleDescription = () => {
+    setVisible(!isVisible);
+  };
+
   const onClientChange = (e) => {
     setSelectedFolder(e.target.value);
   };
 
-    console.log(props.jsonData[0]);
+    // console.log(props.jsonData[0]);
 
     return (
         <>
@@ -94,25 +99,28 @@ function PieCharts(props) {
                 </PieChart>
             </div>
         <Textbox textInput={textInput} isActive={isActive}/>
-        <Description descriptionInput={descriptionInput} />
+        <Description descriptionInput={descriptionInput} isVisible={isVisible} />
         </div>
-        <p className="custom-label">Beskrivning</p>
+        <p className="custom-label" style={isVisible ? {"visibility": "hidden"} : {"display": "block"}}>Beskrivning</p>
         <AlertBox
             message={message}
             show={show} setShow={setShow}
             />
           <div className="edit-container">
           <div className="edit-text">
-        <Form.Label>Titel</Form.Label>
+        <Form.Label>Lägg till rubrik</Form.Label>
         <InputGroup className="mb-3">
             <Form.Control
-              type="text" placeholder="Titel"
+              type="text" placeholder="Rubrik"
               ref={titleInput}
             />
             <Button variant="outline-secondary" id="button-addon2" onClick={updateTitle}>
-              Uppdatera titel
+              Uppdatera rubrik
             </Button>
           </InputGroup>
+          <Button variant="outline-secondary" onClick={toggleDescription}>
+              {isVisible ? "Lägg till beskrivning" : "Ta bort beskrivning"}
+          </Button>
           <Button variant="outline-secondary" onClick={toggleTextArea}>
               {isActive ? "Lägg till textruta" : "Ta bort textruta"}
             </Button>
@@ -136,6 +144,7 @@ function PieCharts(props) {
         selectedFolder={selectedFolder}
         title={title}
         setMessage={setMessage} setShow={setShow}
+        setSelectedFolder={setSelectedFolder}
         />
         <Pdf
         title={title}

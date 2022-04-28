@@ -36,17 +36,23 @@ h1 {
     margin: 0 auto;
     background: #F8F9FB;
     padding: 2rem;
-    width: fit-content;
+    /* width: fit-content; */
 }
 
 .bar {
     display: grid;
     justify-content: center;
+    min-height: 550px;
 }
 
 .pie {
     display: flex;
     justify-content: center;
+    /* min-height: 600px; */
+}
+
+.recharts-wrapper {
+  top: 10%;
 }
 
 table {
@@ -98,6 +104,8 @@ textarea.form-control {
 
 .text-box {
     display: block;
+    resize: both;
+    overflow: auto;
     width: 100%;
     height: 100%;
     opacity: 75%;
@@ -117,28 +125,32 @@ textarea.form-control {
 
 .description {
   display: block;
-  text-align: center;
-  font-size: 1.4rem;
-  line-height: 1.5;
-  color: #0b0c0e;
+  resize: both;
+  overflow: auto;
+  margin: auto;
+  width: 45%;
+  height: 100%;
   opacity: 75%;
   padding: 0.375rem 0.75rem;
+  font-size: 1.2rem;
   font-weight: 400;
-  /* background-color: #fff; */
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
   background-clip: padding-box;
-  border-bottom: 1px solid #ced4da;
-  /* -webkit-appearance: none;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
   appearance: none;
   border-radius: 0.25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; */
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+
 .custom-label {
-  margin-top: 0;
-  margin-bottom: 1rem;
+  margin: 0;
   position: relative;
-  /* left: 30px; */
   bottom: 25px;
+  text-align: center;
 }
 
 .edit-container {
@@ -155,18 +167,17 @@ textarea.form-control {
   margin-bottom: 1rem;
 }
 
-.img-container {
-  display: inline;
-}
-
-.img-container p {
-  display: inline;
-}
-
 .images {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  gap: 40px;
+}
+
+.alert {
+  width: 500px;
+  margin: auto;
+  margin-bottom: 1rem;
 }
 
 @keyframes App-logo-spin {

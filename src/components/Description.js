@@ -4,7 +4,7 @@ import ContentEditable from 'react-contenteditable'
 
 
 function Description(props) {
-    const { descriptionInput } = props;
+    const { descriptionInput, isVisible } = props;
 
     const handleChange = evt => {
       descriptionInput.current = evt.target.value;
@@ -15,7 +15,7 @@ function Description(props) {
           onChange={handleChange}
           html={descriptionInput.current}
           className="description"
-          // style={isActive ? {"display": "none"} : {"display": "block"}}
+          style={isVisible ? {"visibility": "hidden"} : {"display": "block"}}
           />
         </>
     )
