@@ -17,8 +17,8 @@ function Textbox(props) {
           default={{
             x: 150,
             y: 200,
-            width: 300,
-            height: 200,
+            width: 200,
+            height: 150,
           }}
           minWidth={100}
           minHeight={50}
