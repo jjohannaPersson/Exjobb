@@ -6,7 +6,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  LabelList
+  LabelList,
+  ResponsiveContainer
 } from "recharts";
 
 import { LinkContainer } from 'react-router-bootstrap';
@@ -61,9 +62,8 @@ const SimpleBarChart = (props) => {
         <div className="content" id="graph" ref={myContainer}>
         <h1>{title}</h1>
         <div className="bar">
+        <ResponsiveContainer widht="90%" height="90%">
             <BarChart
-              width={1200}
-              height={500}
               data={props.jsonData}
               margin={{
                 top: 5,
@@ -81,6 +81,7 @@ const SimpleBarChart = (props) => {
               <LabelList dataKey={props.selectedYAxes} position="top"/>
               </Bar>
             </BarChart>
+            </ResponsiveContainer>
         </div>
         <Textbox textInput={textInput} isActive={isActive}/>
         <Description descriptionInput={descriptionInput} isVisible={isVisible} />

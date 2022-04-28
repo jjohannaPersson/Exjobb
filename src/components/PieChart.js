@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from "react-bootstrap";
@@ -57,7 +57,8 @@ function PieCharts(props) {
         <div className="content" id="graph" ref={myContainer}>
             <h1>{title}</h1>
             <div className="pie">
-                <PieChart  width={1200} height={400}>
+            <ResponsiveContainer width="100%" height={500}>
+                <PieChart>
                   <Pie
                     data={props.jsonData}
                     cx='50%'
@@ -97,6 +98,7 @@ function PieCharts(props) {
                     ))}
                   </Pie>
                 </PieChart>
+                </ResponsiveContainer>
             </div>
         <Textbox textInput={textInput} isActive={isActive}/>
         <Description descriptionInput={descriptionInput} isVisible={isVisible} />

@@ -42,7 +42,7 @@ h1 {
 .bar {
     display: grid;
     justify-content: center;
-    min-height: 550px;
+    /* min-height: 550px; */
 }
 
 .pie {
@@ -139,13 +139,21 @@ textarea.form-control {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
+  margin-top: 10%;
   /* -webkit-appearance: none;
   appearance: none;
   border-radius: 0.25rem;
-  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/
 }
 
+.recharts-responsive-container {
+  padding: 10px;
+  min-width: 600px;
+  min-height: 500px;
+  max-height: 500px;
+}
 
+ /*
 .custom-label {
   margin: 0;
   position: relative;
@@ -187,4 +195,4 @@ textarea.form-control {
   to {
     transform: rotate(360deg);
   }
-}
+}*/
