@@ -36,6 +36,7 @@ h1 {
     margin: 0 auto;
     background: #F8F9FB;
     padding: 2rem;
+    width: fit-content;
 }
 
 .bar {
