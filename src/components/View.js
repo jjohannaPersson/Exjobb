@@ -50,7 +50,7 @@ function View(props) {
                     );
                   })}
               </section>
-              <section className="new-customer-section">
+              <section className="new-section">
               <AlertBox
             message={message}
             show={show} setShow={setShow}

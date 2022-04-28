@@ -30,7 +30,7 @@ function NewFolderForm(props) {
     return (
         <>
 
-        <Form.Label>Ny kund</Form.Label>
+        <Form.Label>Skapa ny kund</Form.Label>
             <InputGroup className="mb-3">
             <FormControl
               placeholder="Ny kund"

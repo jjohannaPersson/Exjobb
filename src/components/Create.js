@@ -38,7 +38,6 @@ const Create = (props) => {
         }
         return (
         <div className="header">
-            <h1>Välj typ av graf</h1>
             <Dropdown
             selectedGraph={selectedGraph} setSelectedGraph={setSelectedGraph}
             jsonData={jsonData} setJsonData={setJsonData}

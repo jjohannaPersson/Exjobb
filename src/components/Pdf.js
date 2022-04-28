@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from 'react-bootstrap/Button';
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -14,7 +14,7 @@ function Pdf(props) {
         setShow(true);
         return;
       }
-      html2canvas(document.querySelector('#graph')).then(function(canvas){
+      html2canvas(document.querySelector('#graph'), {background :'#FFFFFF'}).then(function(canvas){
 
         const imgData = canvas.toDataURL("image/jpeg");
 

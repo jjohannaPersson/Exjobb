@@ -49,24 +49,23 @@ function Folder(props) {
             message={message}
             show={show} setShow={setShow}
             />
+      <section className="new-section">
       <GraphUpload
       docId={docId} current={current} setImage={setImage}
       setMessage={setMessage} setShow={setShow}
       />
+      </section>
     </ButtonToolbar>
-    <div>
-      <ul style={{ listStyleType: "none", padding: 0}}>
+    <div className="images">
       {graphs.map((graph) => {
         return (
           <LinkContainer key={Date.now() + Math.random()} to={`/view/${current}/${graph.id}`}>
-          <li key={Date.now() + Math.random()}>
-            <img width="400" src={graph.img} alt={graph.name} />
-            <p>{graph.name}</p>
-          </li>
+          {/* <span className="img-container" key={Date.now() + Math.random()}> */}
+            <img width="450" key={Date.now() + Math.random()} src={graph.img} alt={graph.name} />
+          {/* </span> */}
           </LinkContainer>
           );
         })}
-      </ul>
     </div>
     </section>
     </>
