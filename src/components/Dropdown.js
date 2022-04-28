@@ -18,6 +18,7 @@ const Dropdown = (props) => {
     if (!props.selectedGraph) {
         return (
             <>
+                <h1>Välj typ av graf</h1>
                 <DropdownButton id="dropdown-basic-button" title="Välj graf">
                 {typesOfGraphs.map((graph) => {
                         return (
@@ -36,6 +37,7 @@ const Dropdown = (props) => {
         case "Simple Bar Chart":
             return (
                 <>
+                    <h1>Välj värden</h1>
                     <DropdownButton id="dropdown-basic-button" title={xTitle} >
                     {titles.map((title) => {
                             return (
@@ -65,6 +67,7 @@ const Dropdown = (props) => {
         case "Pie Chart":
             return (
                 <>
+                    <h1>Välj värden</h1>
                     <DropdownButton id="dropdown-basic-button" title={valueTitle}>
                     {titles.map((title) => {
                             return (
