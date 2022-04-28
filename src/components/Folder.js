@@ -61,7 +61,7 @@ function Folder(props) {
         return (
           <LinkContainer key={Date.now() + Math.random()} to={`/view/${current}/${graph.id}`}>
           {/* <span className="img-container" key={Date.now() + Math.random()}> */}
-            <img width="450" key={Date.now() + Math.random()} src={graph.img} alt={graph.name} />
+            <img width="auto" height="280" key={Date.now() + Math.random()} src={graph.img} alt={graph.name} />
           {/* </span> */}
           </LinkContainer>
           );

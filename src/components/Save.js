@@ -7,7 +7,7 @@ const db = app.firestore();
 
 
 function Save(props) {
-    const { title, setShow, setMessage, docId, selectedFolder } = props;
+    const { title, setShow, setMessage, docId, selectedFolder, setSelectedFolder } = props;
 
   // save image to database, create component?
   const saveImage = async (e) => {
@@ -27,6 +27,7 @@ function Save(props) {
         console.info("img added to db");
         setMessage({type: "success", title: "Allt gick bra!", text: 'Grafen har sparats i databasen.'})
         setShow(true);
+        setSelectedFolder("");
       } catch (e) {
         console.error(e);
       }

@@ -32,6 +32,7 @@ const SimpleBarChart = (props) => {
     const [title, setTitle] = useState("");
     const [selectedFolder, setSelectedFolder] = useState("");
     const [isActive, setActive] = useState("false");
+    const [isVisible, setVisible] = useState("false");
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState({
       type: "",
@@ -45,6 +46,10 @@ const SimpleBarChart = (props) => {
 
     const toggleTextArea = () => {
       setActive(!isActive);
+    };
+
+    const toggleDescription = () => {
+      setVisible(!isVisible);
     };
 
     const onClientChange = (e) => {
@@ -78,16 +83,16 @@ const SimpleBarChart = (props) => {
             </BarChart>
         </div>
         <Textbox textInput={textInput} isActive={isActive}/>
-        <Description descriptionInput={descriptionInput} />
+        <Description descriptionInput={descriptionInput} isVisible={isVisible} />
         </div>
-        <p className="custom-label">Beskrivning</p>
+        <p className="custom-label" style={isVisible ? {"visibility": "hidden"} : {"display": "block"}}>Beskrivning</p>
         <AlertBox
             message={message}
             show={show} setShow={setShow}
             />
         <div className="edit-container">
           <div className="edit-text">
-        <Form.Label>Rubrik</Form.Label>
+        <Form.Label>Lägg till rubrik</Form.Label>
         <InputGroup className="mb-3">
             <Form.Control
               type="text" placeholder="Rubrik"
@@ -97,7 +102,9 @@ const SimpleBarChart = (props) => {
               Uppdatera rubrik
             </Button>
           </InputGroup>
-
+          <Button variant="outline-secondary" onClick={toggleDescription}>
+              {isVisible ? "Lägg till beskrivning" : "Ta bort beskrivning"}
+          </Button>
 
           <Button variant="outline-secondary" onClick={toggleTextArea}>
               {isActive ? "Lägg till textruta" : "Ta bort textruta"}
@@ -122,6 +129,7 @@ const SimpleBarChart = (props) => {
         selectedFolder={selectedFolder}
         title={title}
         setMessage={setMessage} setShow={setShow}
+        setSelectedFolder={setSelectedFolder}
         />
         <Pdf
         title={title}
