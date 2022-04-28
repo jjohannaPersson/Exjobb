@@ -68,7 +68,7 @@ const SimpleBarChart = (props) => {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey={props.selectedXAxes} height={100} textAnchor= "start" sclaeToFit="true" verticalAnchor= "start"  interval={0} angle= "40" stroke="#8884d8" label={{ value: props.selectedXAxes, position: "bottom", offset: 20 }}/>
+              <XAxis dataKey={props.selectedXAxes} height={100} textAnchor= "start" sclaeToFit="true" verticalAnchor= "start"  interval={0} angle= "40" stroke="#8884d8" label={{ value: props.selectedXAxes, position: "bottom", offset: 35 }}/>
               <YAxis label={{ value: props.selectedYAxes, position: "insideLeft", offset: -20 }} />
               <Tooltip />
 
@@ -117,13 +117,13 @@ const SimpleBarChart = (props) => {
         <NewFolderForm
             docId={docId}
             setMessage={setMessage} setShow={setShow}/>
-        <Save 
+        <Save
         docId={docId}
         selectedFolder={selectedFolder}
         title={title}
         setMessage={setMessage} setShow={setShow}
         />
-        <Pdf 
+        <Pdf
         title={title}
         setMessage={setMessage} setShow={setShow}
         />

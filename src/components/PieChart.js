@@ -52,7 +52,7 @@ function PieCharts(props) {
         <div className="content" id="graph" ref={myContainer}>
             <h1>{title}</h1>
             <div className="pie">
-                <PieChart  width={600} height={400}>
+                <PieChart  width={1200} height={400}>
                   <Pie
                     data={props.jsonData}
                     cx='50%'

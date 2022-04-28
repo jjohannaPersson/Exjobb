@@ -126,7 +126,7 @@ textarea.form-control {
   font-weight: 400;
   /* background-color: #fff; */
   background-clip: padding-box;
-  border-bottom: 1px solid #ced4da;
+  border: 1px solid #ced4da;
   /* -webkit-appearance: none;
   appearance: none;
   border-radius: 0.25rem;
