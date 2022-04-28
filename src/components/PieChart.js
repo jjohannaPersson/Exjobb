@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useRef, useEffect } from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Link } from "react-router-dom";
 import { LinkContainer } from 'react-router-bootstrap';
 import { Button } from "react-bootstrap";
@@ -79,16 +79,18 @@ function PieCharts(props) {
       setSelectedFolder(e.target.value);
     };
 
+    console.log(props.jsonData[0]);
+
     return (
         <>
         <div class="content" id="graph" ref={myContainer}>
             <h1>{title}</h1>
             <div className="pie">
-                <PieChart width={400} height={400}>
+                <PieChart  width={600} height={400}>
                   <Pie
                     data={props.jsonData}
-                    cx={200}
-                    cy={200}
+                    cx='50%'
+                    cy='50%'
                     labelLine={true}
                     label={({
                       cx,

@@ -27,7 +27,7 @@ const Create = (props) => {
                 docId={docId} current={current} folders={folders}
                 />
                 )
-            } else if (selectedGraph === "Bar Chart") {
+            } else if (selectedGraph === "Pie Chart") {
                 console.log("Här");
                 return(
                 <PieCharts jsonData={jsonData} selectedXAxes={selectedXAxes} selectedYAxes={selectedYAxes}
