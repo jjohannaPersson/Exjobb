@@ -40,6 +40,7 @@ const SimpleBarChart = (props) => {
       title: "",
       text: ""
     })
+    const currentGraph = "bar";
 
     const updateTitle = () => {
       setTitle(titleInput.current.value);
@@ -83,8 +84,8 @@ const SimpleBarChart = (props) => {
             </BarChart>
             </ResponsiveContainer>
         </div>
-        <Textbox textInput={textInput} isActive={isActive}/>
-        <Description descriptionInput={descriptionInput} isVisible={isVisible} />
+        <Textbox textInput={textInput} isActive={isActive} currentGraph={currentGraph}/>
+        <Description descriptionInput={descriptionInput} isVisible={isVisible} currentGraph={currentGraph}/>
         </div>
         <p className="custom-label" style={isVisible ? {"visibility": "hidden"} : {"display": "block"}}>Beskrivning</p>
         <AlertBox
