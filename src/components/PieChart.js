@@ -57,7 +57,7 @@ function PieCharts(props) {
         <div className="content" id="graph" ref={myContainer}>
             <h1>{title}</h1>
             <div className="pie">
-            <ResponsiveContainer width="100%" height={500}>
+            <ResponsiveContainer width="100%" height={400}>
                 <PieChart>
                   <Pie
                     data={props.jsonData}

@@ -73,9 +73,7 @@ function Home(props) {
               <LinkContainer to="/create">
                 <Button>Skapa nytt diagram</Button>
               </LinkContainer>
-              <LinkContainer to="/example">
-                <Button>Visa befintliga diagram</Button>
-              </LinkContainer>
+
               <LinkContainer to="/view">
                 <Button>Ladda upp och visa befintliga diagram</Button>
               </LinkContainer>

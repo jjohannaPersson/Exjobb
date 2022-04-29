@@ -62,7 +62,7 @@ const SimpleBarChart = (props) => {
         <div className="content" id="graph" ref={myContainer}>
         <h1>{title}</h1>
         <div className="bar">
-        <ResponsiveContainer widht="90%" height="90%">
+        <ResponsiveContainer widht="90%" height={500}>
             <BarChart
               data={props.jsonData}
               margin={{
