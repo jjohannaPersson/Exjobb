@@ -6,7 +6,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  LabelList
+  LabelList,
+  ResponsiveContainer
 } from "recharts";
 
 import { LinkContainer } from 'react-router-bootstrap';
@@ -61,9 +62,8 @@ const SimpleBarChart = (props) => {
         <div className="content" id="graph" ref={myContainer}>
         <h1>{title}</h1>
         <div className="bar">
+        <ResponsiveContainer widht="90%" height="90%">
             <BarChart
-              width={1170}
-              height={500}
               data={props.jsonData}
               margin={{
                 top: 5,
@@ -73,7 +73,7 @@ const SimpleBarChart = (props) => {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey={props.selectedXAxes} height={100} textAnchor= "start" sclaeToFit="true" verticalAnchor= "start"  interval={0} angle= "40" stroke="#8884d8" label={{ value: props.selectedXAxes, position: "bottom", offset: 20 }}/>
+              <XAxis dataKey={props.selectedXAxes} height={100} textAnchor= "start" sclaeToFit="true" verticalAnchor= "start"  interval={0} angle= "40" stroke="#8884d8" label={{ value: props.selectedXAxes, position: "bottom", offset: 35 }}/>
               <YAxis label={{ value: props.selectedYAxes, position: "insideLeft", offset: -20 }} />
               <Tooltip />
 
@@ -81,6 +81,7 @@ const SimpleBarChart = (props) => {
               <LabelList dataKey={props.selectedYAxes} position="top"/>
               </Bar>
             </BarChart>
+            </ResponsiveContainer>
         </div>
         <Textbox textInput={textInput} isActive={isActive}/>
         <Description descriptionInput={descriptionInput} isVisible={isVisible} />
@@ -124,14 +125,14 @@ const SimpleBarChart = (props) => {
         <NewFolderForm
             docId={docId}
             setMessage={setMessage} setShow={setShow}/>
-        <Save 
+        <Save
         docId={docId}
         selectedFolder={selectedFolder}
         title={title}
         setMessage={setMessage} setShow={setShow}
         setSelectedFolder={setSelectedFolder}
         />
-        <Pdf 
+        <Pdf
         title={title}
         setMessage={setMessage} setShow={setShow}
         />
