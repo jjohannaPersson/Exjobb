@@ -62,7 +62,7 @@ const SimpleBarChart = (props) => {
         <h1>{title}</h1>
         <div className="bar">
             <BarChart
-              width={1200}
+              width={1170}
               height={500}
               data={props.jsonData}
               margin={{

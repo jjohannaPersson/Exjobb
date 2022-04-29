@@ -35,8 +35,14 @@ h1 {
 .content {
     margin: 0 auto;
     background: #F8F9FB;
-    padding: 2rem;
-    /* width: fit-content; */
+    padding: 1rem;
+    width: fit-content;
+}
+
+.div-content {
+  margin: 0 auto;
+  background: #F8F9FB;
+  padding: 1rem;
 }
 
 .bar {
@@ -149,7 +155,7 @@ textarea.form-control {
 .custom-label {
   margin: 0;
   position: relative;
-  bottom: 25px;
+  bottom: 10px;
   text-align: center;
 }
 
