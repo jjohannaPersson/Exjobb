@@ -33,6 +33,7 @@ function PieCharts(props) {
       title: "",
       text: ""
     })
+    const currentGraph = "pie";
 
   const updateTitle = () => {
     setTitle(titleInput.current.value);
@@ -100,8 +101,8 @@ function PieCharts(props) {
                 </PieChart>
                 </ResponsiveContainer>
             </div>
-        <Textbox textInput={textInput} isActive={isActive}/>
-        <Description descriptionInput={descriptionInput} isVisible={isVisible} />
+        <Textbox textInput={textInput} isActive={isActive} currentGraph={currentGraph}/>
+        <Description descriptionInput={descriptionInput} isVisible={isVisible} currentGraph={currentGraph}/>
         </div>
         <p className="custom-label" style={isVisible ? {"visibility": "hidden"} : {"display": "block"}}>Beskrivning</p>
         <AlertBox

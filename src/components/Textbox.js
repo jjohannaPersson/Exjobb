@@ -6,7 +6,7 @@ import ContentEditable from 'react-contenteditable'
 
 
 function Textbox(props) {
-    const { textInput, isActive } = props;
+    const { textInput, isActive, currentGraph } = props;
 
     const handleChange = evt => {
       textInput.current = evt.target.value;
@@ -27,7 +27,7 @@ function Textbox(props) {
           <ContentEditable
           onChange={handleChange}
           html={textInput.current}
-          className="text-box"
+          className={`text-box-${currentGraph}`}
           style={isActive ? {"display": "none"} : {"display": "block"}}
           />
         </Rnd>
