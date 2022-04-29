@@ -27,7 +27,6 @@ function Graph(props) {
     }, [docId, graphId, graphs])
 
     return <>
-    <h1>Översikt</h1>
     <section>
     <ButtonToolbar className="custom-btn-toolbar">
       <LinkContainer to={`/view/${current}`}>
