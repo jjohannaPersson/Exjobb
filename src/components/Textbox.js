@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Rnd } from 'react-rnd';
-import ContentEditable from 'react-contenteditable'
+import ContentEditable from 'react-contenteditable';
 
 
 

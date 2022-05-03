@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import * as XLSX from "xlsx";
-
 import Button from 'react-bootstrap/Button';
+// import * as XLSX from "xlsx";
+const XLSX = await import('xlsx');
 
 
 const FileUpload = (props) => {
